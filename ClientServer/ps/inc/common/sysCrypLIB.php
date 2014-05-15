@@ -184,5 +184,22 @@ if (isset($get['ob4']) AND preg_match("/\w/",$get['ob4'])) {
 }
 
 function runPlugins($itx,$session) {
-	
+		$x = 0;
+		while(isset($itx['plg']['type']['list'][$x])) {
+			$resultpluginslist = myquery("SELECT * FROM `".dbprfx."plugins-list` WHERE ((`plugins-allow` LIKE ';ALLOW|ALL;') OR (`plugins-allow` LIKE ';ALLOW|".$itx['get']['id'].";')) AND ((`plugins-allow` NOT LIKE ';DENY|ALL;') OR (`plugins-allow` NOT LIKE ';DENY|".$itx['get']['id'].";')) AND (`plugins-type` = '".$itx['plg']['type']['list'][$x]."' ORDER BY `plugins-list-order` ASC");
+			if($resultpluginslist != "not") {
+			$rows = myrows($resultpluginslist);
+			$y = 0;
+			while ($y < $rows) {
+				$resultpluginsarray = myarray($resultpluginslist);
+				if (file_exists(pathPRV."plg/plg-".$resultpluginsarray['plugins-name']."/".$itx['plg']['type']['list'][$x].".php")) {
+					include(pathPRV."plg/plg-".$resultpluginsarray['plugins-name']."/".$itx['plg']['type']['list'][$x].".php");
+				}
+				$y++;
+			}
+			}
+		unset($resultpluginslist); 
+		if(isset($resultpluginsarray)) { unset($resultpluginsarray); unset($resultpluginslist);}
+		$x++;
+		}
 }

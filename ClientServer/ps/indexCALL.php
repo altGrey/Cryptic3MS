@@ -21,4 +21,8 @@ define("unixtime",time());
 define("prettytime",getPrettyTime(unixtime));
 // $_SESSION = initSession($_SESSION);
 // $_SESSION = agentSession($_SESSION,$_SERVER['HTTP_USER_AGENT']);
-
+$_SESSION = initSession($_SESSION);
+$_SESSION = agentSession($_SESSION,$_SERVER['HTTP_USER_AGENT']);
+runPlugins($itx,$_SESSION);
+die();
+exit();

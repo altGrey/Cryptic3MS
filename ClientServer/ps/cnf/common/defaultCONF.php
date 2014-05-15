@@ -20,6 +20,8 @@ define("pathPUB","/home/crypticpaneluser/ClientServer/public_html/");
 ////////////////// Language Settings
 if((isset($_GET['lang'])) and preg_match("/(\w|_)+/",$_GET['lang']) and file_exists(pathPRV."cnf/localization/".$_GET['lang']."/langCONF.php")) {
 define("LANG",$_GET['lang']);
+define("charset","utf-8");
+define("headertype",'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">');
 }
 else {
 define("LANG","english_US");
@@ -46,3 +48,6 @@ define("defob1","not");
 define("defob2","not");
 define("defob3","not");
 define("defob4","not");
+
+///////////////////////// Plugins
+$itx['plg']['type']['list'] = array("pre","run","post");
